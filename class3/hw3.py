@@ -12,7 +12,7 @@ EX:
 """
 
 try:
-    hua = int(input("輸入華氏"))
+    hua = int(input("輸入華氏:"))
     s = (hua - 32) * (5 / 9)
     print("攝氏是" + str(s))
 
