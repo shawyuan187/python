@@ -10,3 +10,11 @@ EX:
 請輸入華氏溫度:ABC
 輸入錯誤!
 """
+
+try:
+    hua = int(input("輸入華氏"))
+    s = (hua - 32) * (5 / 9)
+    print("攝氏是" + str(s))
+
+except:
+    print("笑死你超智障lmao")

@@ -11,8 +11,8 @@ new_str_1 = "我是%s, 今年%d歲了" % (name, age)
 print(new_str_1)
 
 try:
-    num = int(input("請輸入一格數字"))
-    total = num + 1
+    num = int(input("請輸hua shi"))
+    total = (hua shi - 32) * (5 / 9)
     print(total)
 except:
     print("都是電腦的錯🤣")
@@ -65,5 +65,4 @@ if:
         print("歡迎光臨")
 else:
     print("密碼錯誤")
-
 """
