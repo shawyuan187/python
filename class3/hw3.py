@@ -17,4 +17,4 @@ try:
     print("攝氏是" + str(s))
 
 except:
-    print("笑死你超智障lmao")
+    print("笑死你超智障lmao🤣")
