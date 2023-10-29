@@ -37,6 +37,7 @@ EX:
 你的BMI為31.14186851211073
 體重過重
 """
+"""
 m = input("type your high here:")
 kg = input("type your kg here:")
 bmi = float(kg) / float(m) ** 2
@@ -47,5 +48,17 @@ elif bmi >= 20.7:
     print("you are too heavy")
 elif bmi <= 14.8:
     print("you are too low")
+else:
+    print("emotional damage")
+"""
+a = float(input("a="))
+b = float(input("b="))
+c = float(input("c="))
+if a + b > c and a + c > b and b + c > a:
+    print(f"周常:{(a+b+c)}")
+
+    p = (a + b + c) / 2
+    area = (p * (p - a) * (p - b) * (p - c)) ** 0.5
+    print(f"面積:{area}")
 else:
     print("emotional damage")
