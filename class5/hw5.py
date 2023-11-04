@@ -52,4 +52,22 @@ EX:
  * 
  * 
  * 
+
+
+n = int(input("請輸入正整數: "))
+
+for i in range(1, n + 1):
+    if i % 3 == 0 or i % 7 == 0:
+        print(i)
+
+size = int(input("請輸入要印出的箭頭大小: "))
+
+
+for i in range(1, size + 1):
+    stars = "*" * (i * 2 - 1)
+    print(stars.center(size * 2 - 1))
+
+
+for i in range(size):
+    print("*".center(size * 2 - 1))
 """
