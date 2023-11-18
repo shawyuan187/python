@@ -9,11 +9,15 @@ while True:
         if num < b:
             b = num
             print("smaller")
+        else:
+            continue
 
     elif num < ran:
         if num > s:
             s = num
             print("big")
+        else:
+            continue
 
     elif num == ran:
         print("u are correct")

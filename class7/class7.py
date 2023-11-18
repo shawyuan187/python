@@ -54,7 +54,7 @@ for i in range(len(l)):
 
 for i in l:
     print(i)
-"""
+
 
 
 juices_list = ["蘋果汁", "柳橙汁", "葡萄汁", "可樂", "系統關閉"]  # 可以直接加上註解
@@ -73,3 +73,4 @@ while True:
         print("輸入錯誤查無此果汁，請重新輸入")
     else:
         print("您點的商品是" + juices_list[ans - 1])  # 商品選擇
+"""
