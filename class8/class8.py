@@ -45,12 +45,12 @@ while True:
         print("the new weather is" + weather[ans - 1])
         print(weather)
         break
-
+"""
 l = ["a", "b", "c"]
 a = l.copy()
 a[0] = 1
 print(a)
-
+"""
 a = ["apple", "banana"]
 b = ["milk", "bread"]
 print(a + b)
@@ -61,10 +61,11 @@ a = min(["火龍果", "哈密瓜", "百香果", "橘子", "蘋果", "香蕉", "�
 b = max(["火龍果", "哈密瓜", "百香果", "橘子", "蘋果", "香蕉", "梨", "李", "桃"])
 print(b)
 print(a)
-"""
+
 a = list("abc")
 b = list([4, 5, 6])
 c = list(range(3))
 print(a)
 print(b)
 print(c)
+"""
