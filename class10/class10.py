@@ -1,26 +1,3 @@
-"""
-1,2,3".split(",")
-"2020/1".split("/")  # cut
-
-
-img = ["1", "2", "3"]
-"-".join(img)  # 把他家進逗號的位置
-
-img = "2023/10/20".split("/")
-a = "-".join(img)
-print(a)
-l=[1,2,3]
-l.append(4)
-print(l)
-
-l=['a,'b','c','d']
-l.remove('a')
-print(l)
-
-l=[1,2,3]
-l.insert(0,'A')
-print(l)
-"""
 import random
 
 order_l = []
@@ -52,6 +29,23 @@ while True:
         c = int(input("which place will this new thing put:"))
         d = input("what is it:")
         order_l.insert(c, d)
+    elif option == "4":
+        e = input("what do you want to search:")
+        print(order_l.count(e))
+    elif option == "5":
+        order_l.pop()
+    elif option == "6":
+        f = int(input("which place you want to remove:"))
+        order_l.pop(f)
+    elif option == "7":
+        order_l.sort()
+    elif option == "8":
+        order_l.sort(reverse=True)
+    elif option == "9":
+        order_l.reverse()
+    elif option == "10":
+        g = input("what do u want to search")
+        print(l.indext(g))
     elif option == "11":
         print("thank you to use ordermachine")
         break
@@ -60,3 +54,10 @@ while True:
         print("type a number in 1-11")
         continue
     print("now orderlist is" + str(order_l))
+"""
+l = [9, 1, -4, 3, 7, 11, 3]
+print(l.count(3))
+
+l.sort(reverse=True)
+
+"""
