@@ -1,43 +1,32 @@
-l = []
-one = "no1"
-two = "no2"
-three = "no3"
+l = {}
+
 while True:
-    print("no1,no2,no3")
-    print("目前以點餐點" + str(l))
+    print("目前的成績" + str(l))
     print("1,新增分")
     print("2,移除分")
-    print("3,提交")
-    option = input("歡迎使用，請打你要的選項:")
+    print("3,提交並且顯示成績")
+    option = input("歡迎使用，請輸入你的選項(1~3):")
+
     if option == "1":
-        a = input("type 1 or 2 or 3:")
-        if a == "1":
-            l.append(one)
-        elif a == "2":
-            l.append(two)
-        elif a == "3":
-            l.append(three)
+        c = input("請輸入科目:")
+        a = input("輸入該科目分數:")
+        l[c] = a
     elif option == "2":
         b = input("你要移除甚麼:")
         if b in l:
-            if b == "no1":
-                while "no1" in l:
-                    l.remove("no1")
-            elif b == "no2":
-                while "no1" in l:
-                    l.remove("no1")
-            elif b == "no3":
-                while "no1" in l:
-                    l.remove("no1")
-            print("已移除")
+            l.pop(b)
+            print("已移除" + b)
         else:
-            print("error")
+            print("發生極大的錯誤，你腦袋有問題!")
     elif option == "3":
         print("已提交")
-        print("no1=" + str(l.count("no1")))
-        print("no2=" + str(l.count("no2")))
-        print("no3=" + str(l.count("no3")))
+        if len(l) > 0:
+            tot = sum([int(score) for score in l.values()])
+            ave = tot / len(l)
+            print("你的所有科目的平均是:" + ave)
+        else:
+            print("沒有科目成績可以顯示")
         break
     else:
-        print("操操操操操操操操操操操操操操操操操操操操操操操操操操操操操操操操操操操")
+        print("錯誤，我操你居然看不懂文字!")
         continue
