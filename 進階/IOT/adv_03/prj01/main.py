@@ -1,7 +1,7 @@
 #########################匯入模組#########################
 from machine import Pin
 from time import sleep
-import adv03.mcu as mcu
+import adv_03.mcu as mcu
 
 #########################函式與類別定義#########################
 gpio = mcu.gpio()
