@@ -66,7 +66,7 @@ while True:
         LED.BLUE.value(0)
 
     if "CLOSE" in m:  # 關閉車庫
-        servo.angle(90)  # 設定角度
+        servo.angle(90)  # 設定角度 
     elif "OPEN" in m:  # 開啟車庫
         servo.angle(180)  # 設定角度
     time.sleep(1)
