@@ -2,7 +2,7 @@
 import discord
 import os
 from dotenv import load_dotenv
-from myfunction.myfunction import weatherapi
+from adv09.myfunction.weather_api import weatherapi
 import openai
 
 #######################初始化#######################
@@ -41,10 +41,46 @@ async def on_message(message):
             await message.channel.send("遊戲結束")
         else:
             game_data = channel_games[channel_id]["game_data"]
+            print(user_input)
             if "history" not in channel_games[channel_id]:
                 channel_games[channel_id]["history"] = []
-                history = channel_games[channel_id]["history"]
-                history.append({"role": "user", "content": user_input})
+
+            history = channel_games[channel_id]["history"]
+            history.append({"role": "user", "content": user_input})
+            messages = (
+                [
+                    {
+                        "role": "system",
+                        "content": f"""
+你是這個遊戲的主持人，你會回答我的問題。
+題目:{channel_games[channel_id]['game_data']['question']}
+請大家開始提問,輸入'結束遊戲'可結束遊戲
+我的回應只會是[是]、[不是]或者[無可奉告]，不會回答其他內容
+當玩家要求提示的時候，你可以提供'關鍵字'當作提示。
+謎題:{game_data['question']}
+解答:{game_data['answer']}""",
+                    },
+                ]
+                + history
+            )
+            try:
+                response = openai.chat.completions.create(
+                    model="gpt-4o",
+                    messages=messages,
+                    temperature=0.5,
+                )
+                answer = response.choices[0].message.content
+                if answer == "恭喜答對!":
+                    game_data["solved"] = True
+                    await message.channel.send("🫵結束遊戲，我要去睡覺了")
+                    channel_games.pop(channel_id)
+                else:
+                    history.append({"role": "assistant", "content": answer})
+                    channel_games[channel_id]["history"] = history
+                    await message.channel.send(answer)  # debug
+                    print(messages)
+            except Exception as e:
+                await message.channel.send(f"eror: {e}")
 
 
 #######################指令#######################
