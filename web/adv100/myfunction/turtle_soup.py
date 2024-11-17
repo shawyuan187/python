@@ -14,7 +14,7 @@ class TurtleSoupGame:
     def load_questions(self):
         try:
             os.chdir(sys.path[0])
-            with open("questions.json", "r", encoding="utf-8") as f:
+            with open("turtle_soup.json", "r", encoding="utf-8") as f:
                 self.questions = json.load(f)
         except Exception as e:
             self.questions = [

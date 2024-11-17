@@ -42,8 +42,6 @@ async def on_message(message):
                 await message.channel.send("🫵結束遊戲，我要去睡覺了")
             else:
                 await message.channel.send(response)
-    else:
-        await bot.process_commands(message)
 
 
 #######################指令#######################
@@ -65,7 +63,7 @@ async def turtle_soup(interaction: discord.Interaction):
 """
         )
     else:
-        await interaction.response.send_message(response, emphemeral=True)
+        await interaction.response.send_message(response, ephemeral=True)
 
 
 # 取得天氣
@@ -77,10 +75,9 @@ async def weather(
     ai: bool = False,
 ):
     await interaction.response.defer()
-    unit_symbol = "C" if weather_api.units == "metric" else "F"
     if not forecast:
         info = weather_api.get_current_weather(city)
-        embed = weather_api.create_embed(city, info)
+        embed = await weather_api.get_weather_embed(city, info)
         if embed:
             await interaction.followup.send(embed=embed)
         else:
@@ -89,17 +86,15 @@ async def weather(
         info = weather_api.get_forecast(city)
         if "list" in info:
             if not ai:
-                embeds = weather_api.create_forecast_embeds(city, info)
+                embeds = await weather_api.create_forecast_embeds(city, info)
                 if embeds:
                     await interaction.followup.send(embeds=embeds)
-                else:
-                    try:
-                        analysis = weather_api.analyze_weather(city, info, openai)
-                        await interaction.followup.send(
-                            f"**{city}的天氣情況**\n{analysis}"
-                        )
-                    except Exception as e:
-                        await interaction.followup.send(f"eror: {e}")
+            else:
+                try:
+                    analysis = await weather_api.analyze_weather(city, info, openai)
+                    await interaction.followup.send(f"**{city}的天氣情況**\n{analysis}")
+                except Exception as e:
+                    await interaction.followup.send(f"eror: {e}")
         else:
             await interaction.followup.send(f"找不到**{city}**的天氣信息")
 

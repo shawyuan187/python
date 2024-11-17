@@ -12,7 +12,7 @@ class weatherapi:
         self.forecast_url = "https://api.openweathermap.org/data/2.5/forecast?"
         self.icon_url = "https://openweathermap.org/img/wn/"
 
-    def get_weather(self, city_name):
+    def get_current_weather(self, city_name):
         url = f"{self.base_url}appid={self.api_key}&q={city_name}&units={self.units}&lang={self.lang}"
         response = requests.get(url)
         return response.json()
@@ -42,8 +42,8 @@ class weatherapi:
             icon_code = weather_info["weather"][0]["icon"]
             icon_url = self.get_icon_url(icon_code)
             embed = discord.Embed(
-                title=f"{city} {current_weather}",
-                description=f"氣溫：{weather_info['main']['temp']}{unit_symbol}\n氣壓：{weather_info['main']['pressure']}hPa\n風力：{weather_info['wind']['speed']}m/s\n風向：{weather_info['wind']['deg']}°",
+                title=f"{city}",
+                description=f"氣溫：{current_temperature}{unit_symbol}\n氣壓：{weather_info['main']['pressure']}hPa\n風力：{weather_info['wind']['speed']}m/s\n風向：{weather_info['wind']['deg']}°",
                 color=0x00FFFF,
             )
             embed.set_thumbnail(url=icon_url)
@@ -52,7 +52,7 @@ class weatherapi:
                 value=f"{current_weather}{unit_symbol}",
                 inline=False,
             )
-            return None
+            return embed
         return None
 
     async def create_forecast_embeds(self, city, forecast_info):
@@ -91,11 +91,11 @@ class weatherapi:
                     },
                     {
                         "role": "user",
-                        "content": f"以下是 {city_name}.根據這些數據提供詳細的天氣分析和建議。",
+                        "content": f"以下是 {city_name}的未來天氣預報，請根據這些數據提供詳細的天氣分析和建議:\n{forecast_data}",
                     },
                 ],
                 temperature=0.2,
             )
             return response.choices[0].message.content
         except Exception as e:
-            return None
+            raise Exception(f"該城市的天氣預報失敗: {e}")
