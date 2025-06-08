@@ -1,0 +1,72 @@
+from microbit import *
+from lcd_i2c import LCD1602  # 導入 LCD 函式庫
+
+# 設定腳位 (使用 pin 方法)
+TEMP_PIN = pin0  # 溫度感測器
+GAS_PIN = pin1  # 氣體感測器
+PIR_PIN = pin2  # 人體感測器
+LED_PIN = pin8  # LED
+RGB_PIN = pin16  # RGB LED
+
+# 全域變數
+temperature = 0
+gas_value = 0
+pir_detected = False
+
+
+def read_sensors():
+    global temperature, gas_value, pir_detected
+
+    # 讀取溫度 (使用 read_analog() 方法)
+    temperature = TEMP_PIN.read_analog() * 50 / 1023
+     
+    # 讀取氣體感測器
+    gas_value = GAS_PIN.read_analog()
+
+    # 讀取人體感測器
+    pir_detected = PIR_PIN.read_digital()
+
+
+# 初始化 LCD (設定 I2C 位址為 0x27)
+lcd = LCD1602(0x27)
+
+
+def update_display():
+    # 清除 LCD 顯示
+    lcd.clear()
+    # 第一行顯示溫度
+    lcd.move_to(0, 0)
+    lcd.putstr(f"Temp: {round(temperature)}C")
+    # 第二行顯示氣體數值
+    lcd.move_to(0, 1)
+    lcd.putstr(f"Gas: {gas_value}")
+
+
+def control_devices():
+    # 氣體濃度過高時警示
+    if gas_value > 500:
+        RGB_PIN.write_digital(1)
+        lcd.move_to(9, 1)
+        lcd.putstr("Gas HIGH!")
+    else:
+        RGB_PIN.write_digital(0)
+        lcd.move_to(9, 1)
+        lcd.putstr("Gas OK  ")
+
+    # 有人移動時開燈
+    if pir_detected:
+        LED_PIN.write_digital(1)
+        lcd.move_to(9, 0)
+        lcd.putstr("Moving!")
+    else:
+        LED_PIN.write_digital(0)
+        lcd.move_to(9, 0)
+        lcd.putstr("Still ")
+
+
+# 主程式迴圈
+while True:
+    read_sensors()
+    update_display()
+    control_devices()
+    pause(100)
